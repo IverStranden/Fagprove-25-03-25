@@ -13,6 +13,14 @@
   - Inneholder info om hvert enkelt sett som ble gjort i løpet av en Workout Session, inkludert vekt og repetisjoner.
   ### Workout Persons
   - Inneholder data relatert til en spesifikk person sin treningsaktivitet, som kroppsvekt med kobling til System Persons.
+    
+## Views & Procedures
+  ### Statistics 
+  - Dette blir enten håndtert via ett view, eller så blir den håndtert via en procedure. Jeg tenker å hente dataen fra f.eks sets for å se hvor god økning det har vært basert på tid.
+  ### Personal Best
+  - Viser høyeste registrerte vekt og flest repetisjoner per øvelse.
+  ### Projection
+  - Viser anntatt styrke fremover basert på data.
 
 [Draw SQL](https://drawsql.app/teams/iver-a-co/diagrams/training-app-fagproeve)
 
