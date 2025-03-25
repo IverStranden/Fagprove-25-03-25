@@ -1,5 +1,19 @@
 # Data Modell
-![image](https://github.com/user-attachments/assets/4fccf66a-883d-458e-aa7d-b5a8b0e864d5)
+![image](https://github.com/user-attachments/assets/c2f8ae73-dece-4f05-9951-59cc798f5508)
+## Forklaring
+  ### Routines
+  - Dette skal være tabellen som inneholder rutinen. Tanken er at man skal kunne lage rutiner som man kan gjennomføre gjentatte ganger.
+  ### Exercises
+  - Inneholder øvelser som man kan gjøre. Øvelsene kan for eksempel være knebøy eller benkpress, og feltene "WeightIsAssisted" og "isGlobal" sier om øvelsene er maskinassisterte eller fellesøvelser for alle brukere, siden tanken er at brukerene skal kunne lage egne øvelser.
+  ### Workout Exercise Routines
+  - Kobler sammen rutiner med øvelser og definerer rekkefølgen (via Order) og standard antall sett per exercise.
+  ### Session
+  - Sessions er den faktiske treningsøkten hvor en spesifikk rutine blir gjennomført. Inneholder også tidspunkt for start og slutt.
+  ### Sets
+  - Inneholder info om hvert enkelt sett som ble gjort i løpet av en Workout Session, inkludert vekt og repetisjoner.
+  ### Workout Persons
+  - Inneholder data relatert til en spesifikk person sin treningsaktivitet, som kroppsvekt med kobling til System Persons.
+
 [Draw SQL](https://drawsql.app/teams/iver-a-co/diagrams/training-app-fagproeve)
 
 # Figma skisser
