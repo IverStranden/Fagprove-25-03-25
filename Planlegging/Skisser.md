@@ -1,5 +1,5 @@
 # Data Modell
-![image](https://github.com/user-attachments/assets/c2f8ae73-dece-4f05-9951-59cc798f5508)
+![image](https://github.com/user-attachments/assets/06b1f788-b0a1-4023-bb42-d5381a90e74c)
 ## Forklaring
   ### Routines
   - Dette skal være tabellen som inneholder rutinen. Tanken er at man skal kunne lage rutiner som man kan gjennomføre gjentatte ganger.
