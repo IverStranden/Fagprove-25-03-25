@@ -4,8 +4,11 @@ Design og visualisering av datamodellen ved hjelp av DrawSQL og Figma, med tilh�
 ### Opprettelse av tabeller og skjermbilder
 Definering og opprettelse av nødvendige tabeller og views, oppsett av roller, moduler og sikkerhet.
 
-### Gjennomføring og Testing
-Implementering av skjermbilder og nødvendige funksjoner for applikasjonen, og støtte for brukertesting for å sikre god funksjonalitet.
+### Design og utvikling av applikasjon
+Utvikling av apper og dialoger basert på planlagt funksjonalitet (se skisse av løsningen). Implementering av nødvendige skjermbilder og funksjoner for å dekke krav og brukerbehov.
+
+### Testing og kvalitetssikring
+Gjennomføring av brukertesting og dokumentasjon av resultatene i en testrapport. Evaluering og justeringer for å sikre optimal funksjonalitet.
 
 ### Bonus Funsjonalitet & Gjennomgang av punkter
 Gjennomgang av alle vurderingskriterier for å identifisere eventuelle mangler. Implementering av bonusfunksjonalitet om det er tid.
