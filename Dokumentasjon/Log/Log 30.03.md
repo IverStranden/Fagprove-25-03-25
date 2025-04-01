@@ -1,4 +1,4 @@
-## Log Dag 7
+## Log Dag 6
 
 ### Utført arbeid
 
