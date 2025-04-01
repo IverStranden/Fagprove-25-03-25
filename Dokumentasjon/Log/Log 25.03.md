@@ -13,6 +13,9 @@ Følgende tabeller er lagd:
 - Set
 - Exercise
 
+Følgende views er lagd:
+- aviw_WorkOut_Exercise_Routines 
+
 #### Roller
 - WorkoutUser er opprettet som rolle.
 
