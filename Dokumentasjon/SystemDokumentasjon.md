@@ -301,7 +301,7 @@ I Omega 365 CTP får ikke brukere direkte tilgang til tabeller. All visning i fr
    - Beskrivelse på hvordan appen brukes: [Brukerveiledning](https://github.com/IverStranden/Fagprove-25-03-25/blob/main/Dokumentasjon/BrukerVeiledning.md)
      
 ### Workout-systemet består av to apper:
-  -  WorkOut Overview – Brukes til alt.
+  -  WorkOut Overview – Viser en oversikt over alle registrerte treningsøkter. Her kan brukeren navigere, redigere eller slette økter, og også styre routines og se grafer.
   -  WorkOut Session – Brukes til å gjennomføre å se på fullførte workouts.
 
     
