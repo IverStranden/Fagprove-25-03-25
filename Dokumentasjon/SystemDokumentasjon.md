@@ -177,7 +177,70 @@
           </tr>
         </table>
       </details>
-      <details open>
+      <details>
+        <summary>
+          <h4>Procedures</h4> 
+        </summary>
+        <table>
+          <tr>
+            <th>Navn</th>
+            <th>Beskrivelse</th>
+            <th>Kode</th>
+          </tr>
+          <tr>
+            <td><b>astp_WorkOut_GenerateOneRepMax</b></td>
+            <td>
+              Denne proceduren kalkulerer "One Rep Maximum" basert på parameteret du sender inn.
+            </td>
+            <td>
+              <details>
+              <summary>
+                <h4>Expand</h4>
+              </summary> 
+              <pre><code>
+                BEGIN
+		    SELECT TOP 1
+		        S.Session_ID, SE.EndTime AS Created, E.Name AS ExerciseName, S.Weight, S.Repetitions,
+		        CAST(S.Weight * (1 + (0.0333 * S.Repetitions)) AS DECIMAL(10,2)) AS OneRepMax
+		    FROM dbo.atbv_WorkOut_Sets AS S
+		        INNER JOIN dbo.atbv_WorkOut_Exercises AS E
+		            ON S.Exercise_ID = E.ID
+		        INNER JOIN dbo.atbv_WorkOut_Session AS SE
+		            ON SE.ID = S.Session_ID
+		    WHERE S.Weight IS NOT NULL
+		        AND S.Repetitions IS NOT NULL
+		        AND S.Exercise_ID = @Exercise_ID
+		        AND SE.EndTime IS NOT NULL
+		    ORDER BY OneRepMax DESC
+		END
+              </code></pre>
+              </details>
+            </td>
+          </tr>
+          <tr>
+            <td><b>astp_WorkOut_DiscardSession</b></td>
+            <td>
+              Denne proceduren sletter sessionen og sets som er festet til basert på parameteret.
+            </td>
+            <td>
+              <details>
+              <summary>
+                <h4>Expand</h4>
+              </summary> 
+              <pre><code>
+                BEGIN
+		    DELETE FROM dbo.atbl_WorkOut_Sets
+		        WHERE Session_ID = @Session_ID
+		    DELETE FROM dbo.atbl_WorkOut_Session
+		        WHERE ID = @Session_ID
+		END
+              </code></pre>
+              </details>
+            </td>
+          </tr>
+        </table>
+      </details>
+<details open>
 <summary>
   <h2>Sikkerhet</h2>
 </summary>
@@ -220,14 +283,87 @@ WHERE EXISTS (SELECT 1
     AND t.CreatedBy_ID = dbo.sfnc_system_GetMyPersonID()
 </code></pre>
 
-I alle tabeller i Omega 365 CTP finnes det en lik atbv. Vi gir vanligvis ikke brukere tabell select tilganger, så all data som brukerene ser er via views. Atbver blir autogenerert i det man oppretter en tabell og default sikkerheten er en sjekk som sier 1=0. Dette gjør at all dataen blir sjult og er der sånn at
-utviklerene blir tvingt til å tenke på sikkerheten. I min løsning er nesten all data begrenset per person så jeg gjør en sjekk mot CreatedBy_ID for å kun vise dataen til den spesifikke brukeren.
-
-I Omega 365 CTP får ikke brukere direkte tilgang til tabeller. All visning skjer via views (`atbv_*`). Atbver blir generert automatisk når man opretter en tabell og default-sikkerheten skjuler all data (`1=0`), som tvinger utviklere til å tenke på sikkerheten. I løsningen min er dataen brukerspesifikk, jeg gjør en  filtrert på `CreatedBy_ID`.
+I Omega 365 CTP får ikke brukere direkte tilgang til tabeller. All visning i frontend skjer via views (atbv). Atbver blir generert automatisk når man opretter en tabell og default-sikkerheten skjuler all data (1=0), som tvinger utviklere til å tenke på sikkerheten. I løsningen min er dataen brukerspesifikk, nesten alt er filtrert på "CreatedBy_ID".
 
 
 </details>
     </li>
   </ul>
+
+</details>
+
+
+<details open>
+<summary>
+  <h2>Grensesnittbeskrivelse</h2>
+</summary>
+  
+   - Beskrivelse på hvordan appen brukes: [Brukerveiledning](https://github.com/IverStranden/Fagprove-25-03-25/blob/main/Dokumentasjon/BrukerVeiledning.md)
+     
+### Workout-systemet består av to apper:
+  -  WorkOut Overview – Brukes til alt.
+  -  WorkOut Session – Brukes til å gjennomføre å se på fullførte workouts.
+
+    
+### Navigasjon
+  -  Brukeren har alltid tilgang til å gå tilbake til Workout Overview.
+    
+### Workout-funksjonalitet
+  -  All data hentes fra SQL.
+  -  Alle exercises, routines og sessions man lager blir lagret per person.
+  -  Man trykker på "Start New Workout" for å logge en workout.
+  -  Man kan redigere, lage og slette rutiner i "Routines" tabben.
+
+### Tilgjengelighet
+  -  Contrast Ratio (WCAG 1.4.3 & 1.4.6)
+  -  Bruk av farger (WCAG 1.4.1)
+  -  Kontrast (WCAG 1.4.3)
+  -  Meaningful Sequence (WCAG 1.3.2)
+  
+### Datainnsamling og brukerinteraksjon
+  -  Man kan oprette Routines, Exercises, Sessions og sets og alt dette vil bli lagret.
+
+### Teknologi
+  -  Frontend: Vue.js (script setup), med Bootstrap
+  -  Backend: SQL
+  
+</details>
+
+<details open>
+<summary>
+  <h2>Hindringer under utviklingen</h2>
+</summary>
+  
+  - Hadde litt problemer med styling som tok mye av tiden, men det gikk greit til slutt.  
+  - Hadde opprinnelig et litt dårlig mappeoppsett i workout-overview appen, som gjorde det vanskeligere å navigere, men fikk fikset det.  
+  - Import av Highcharts heatmap fungerte ikke skikkelig, så måtte droppe den ideen.  
+
+</details>
+
+<details open>
+<summary>
+  <h2>Avvik fra plan</h2>
+</summary>
+  
+  - Ville opprinnelig ha en tabell som lagret vekt, men ombestemte meg siden det virket som det var lite interesse fra brukere.  
+  - Hadde først tenkt å ha all statistikk i en egen app, men valgte heller å inkludere det i hovedappen.  
+  - Valgte å droppe alt som handlet om projection. Det føltes både urealistisk og kanskje demotiverende for brukerne, siden det kunne skape falske forhåpninger.  
+  - Ønsket å implementere en heatmap som viste antall sets per dag i en kalender, men importen fungerte ikke som den skulle, og jeg ville ikke bruke mye av tiden på feilsøking.  
+
+</details>
+
+<details open>
+<summary>
+  <h2>Kilder</h2>
+</summary>
+  
+  - [Vue Docs](https://vuejs.org/)  
+  - [Bootstrap Docs](https://getbootstrap.com/)  
+  - [Omega Docs](https://docs.omega365.com/)  
+  - [Stack Overflow](https://stackoverflow.com/)  
+  - [ChatGPT](https://chat.openai.com/)  
+  - [Highcharts Docs](https://www.highcharts.com/docs/index)  
+  - [DrawSQL](https://drawsql.app/teams/iver-a-co/diagrams/training-app-fagproeve)  
+  - [Figma](https://www.figma.com/design/qTi4bul6hcGCOdqzFOb1Uw/Untitled?node-id=0-1&p=f&t=mr3Vmpwe40Asc0AS-0)  
 
 </details>
